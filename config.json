@@ -1,0 +1,10 @@
+{
+  "ssh_server": "ChangeMe",
+  "ssh_port": 22,
+  "ssh_user": "ChangeMe",
+  "ssh_key": "",
+  "ssh_password": "ChangeMe",
+  "socks_port": 1080,
+  "udpgw_port": 7300,
+  "timeout_seconds": 10
+}
