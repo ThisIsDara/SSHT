@@ -23,22 +23,6 @@ jobs:
             arch: arm
           - os: linux
             arch: 386
-          - os: linux
-            arch: mips
-          - os: linux
-            arch: mipsle
-          - os: linux
-            arch: mips64
-          - os: linux
-            arch: mips64le
-          - os: linux
-            arch: ppc64
-          - os: linux
-            arch: ppc64le
-          - os: linux
-            arch: riscv64
-          - os: linux
-            arch: s390x
           - os: windows
             arch: amd64
           - os: windows
