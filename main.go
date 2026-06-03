@@ -988,7 +988,7 @@ func padC(w int, text, color string) string {
 func printBanner() {
 	fmt.Println()
 	fmt.Println(top(TEAL, ""))
-	fmt.Println(boxLine(TEAL, padC(BW-6, "SSHT", TEAL+BLD)))
+	fmt.Println(boxLine(TEAL, padC(BW-6, "SSHT  V 1.0", TEAL+BLD)))
 	fmt.Println(boxLine(TEAL, padC(BW-6, "made by ThisIsDara", GRAY)))
 	fmt.Println(bot(TEAL))
 	fmt.Println()
