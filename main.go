@@ -109,7 +109,17 @@ func loadConfig() *Config {
 	}
 	b, err := os.ReadFile(name)
 	if err != nil {
-		msgFatal("Config", "can't read %s", filepath.Base(name))
+		def := Config{
+			SSHServer:      "ChangeMe",
+			SSHPort:        22,
+			SSHUser:        "ChangeMe",
+			SOCKSPort:      1080,
+			UDPGWPort:      7300,
+			TimeoutSeconds: 10,
+		}
+		d, _ := json.MarshalIndent(def, "", "  ")
+		os.WriteFile("config.json", d, 0644)
+		msgFatal("Config", "created default config.json — edit it then run again")
 	}
 	var c Config
 	if err := json.Unmarshal(b, &c); err != nil {
