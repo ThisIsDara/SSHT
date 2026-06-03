@@ -1,0 +1,92 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    name: ${{ matrix.os }}-${{ matrix.arch }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - os: linux
+            arch: amd64
+          - os: linux
+            arch: arm64
+          - os: linux
+            arch: arm
+          - os: linux
+            arch: 386
+          - os: linux
+            arch: mips
+          - os: linux
+            arch: mipsle
+          - os: linux
+            arch: mips64
+          - os: linux
+            arch: mips64le
+          - os: linux
+            arch: ppc64
+          - os: linux
+            arch: ppc64le
+          - os: linux
+            arch: riscv64
+          - os: linux
+            arch: s390x
+          - os: windows
+            arch: amd64
+          - os: windows
+            arch: arm64
+          - os: windows
+            arch: 386
+          - os: windows
+            arch: arm
+          - os: darwin
+            arch: amd64
+          - os: darwin
+            arch: arm64
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - name: Build
+        env:
+          GOOS: ${{ matrix.os }}
+          GOARCH: ${{ matrix.arch }}
+        run: |
+          ext=""
+          if [ "${{ matrix.os }}" = "windows" ]; then ext=".exe"; fi
+          binary="SSHT-${{ matrix.os }}-${{ matrix.arch }}$ext"
+          go build -ldflags="-s -w" -o "$binary" .
+          echo "binary=$binary" >> $GITHUB_ENV
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: SSHT-${{ matrix.os }}-${{ matrix.arch }}
+          path: SSHT-${{ matrix.os }}-${{ matrix.arch }}*
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+
+      - name: List files
+        run: find . -type f
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: SSHT-*/*
+          generate_release_notes: true
