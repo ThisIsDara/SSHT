@@ -27,6 +27,13 @@ SSH Tunnel + SOCKS5/HTTP proxy with UDP relay
 
 ---
 
+
+## ⚠️ Important
+
+- **Avoid using `root` as SSH user** — use a regular user without any privileges.
+- Check out **[ShahanPanel](https://github.com/HamedAp/ShahanPanel)**  a web panel for managing SSH accounts.
+
+---
 ## Quick Start
 
 ### 📦 Requirements
